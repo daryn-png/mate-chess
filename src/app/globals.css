@@ -1,0 +1,159 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Fonts ── */
+@layer base {
+  :root {
+    --font-syne: 'Syne', sans-serif;
+    --font-instrument: 'Instrument Serif', serif;
+    --font-dm-mono: 'DM Mono', monospace;
+  }
+}
+
+/* ── Dark theme (default) ── */
+:root,
+.dark {
+  --bg: #0a0a0b;
+  --bg-2: #111113;
+  --bg-3: #1a1a1e;
+  --bg-4: #222228;
+  --border: #2a2a32;
+  --border-2: #3a3a45;
+  --text: #f0ede8;
+  --text-2: #8a8795;
+  --text-3: #5a5762;
+  --accent: #e8d5a3;
+  --accent-2: #c4a96b;
+  --accent-3: #8b6914;
+  --green: #4ade80;
+  --red: #f87171;
+  --blue: #60a5fa;
+  --gold: #fbbf24;
+  --purple: #a78bfa;
+
+  /* Board colors */
+  --sq-light: #2a2520;
+  --sq-dark: #1a1614;
+  --sq-selected: rgba(232, 213, 163, 0.35);
+  --sq-legal: rgba(232, 213, 163, 0.3);
+  --sq-last: rgba(200, 180, 100, 0.25);
+  --sq-check: rgba(248, 113, 113, 0.35);
+
+  /* Toast */
+  --toast-bg: #1a1a1e;
+  --toast-border: #3a3a45;
+  --toast-text: #f0ede8;
+}
+
+/* ── Light theme ── */
+.light {
+  --bg: #fafaf9;
+  --bg-2: #f5f4f0;
+  --bg-3: #eeede8;
+  --bg-4: #e8e6e0;
+  --border: #d8d5ce;
+  --border-2: #c8c4bc;
+  --text: #1a1814;
+  --text-2: #6a6560;
+  --text-3: #9a9590;
+  --accent: #8b6914;
+  --accent-2: #6b4f0a;
+  --accent-3: #c4a96b;
+  --green: #16a34a;
+  --red: #dc2626;
+  --blue: #2563eb;
+  --gold: #d97706;
+  --purple: #7c3aed;
+
+  --sq-light: #f0ece4;
+  --sq-dark: #b8a898;
+  --sq-selected: rgba(139, 105, 20, 0.25);
+  --sq-legal: rgba(139, 105, 20, 0.2);
+  --sq-last: rgba(139, 105, 20, 0.18);
+  --sq-check: rgba(220, 38, 38, 0.25);
+
+  --toast-bg: #ffffff;
+  --toast-border: #d8d5ce;
+  --toast-text: #1a1814;
+}
+
+/* ── Base styles ── */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-3); }
+
+/* ── Chess board squares ── */
+.sq-light { background-color: var(--sq-light); }
+.sq-dark  { background-color: var(--sq-dark); }
+.sq-selected { background-color: var(--sq-selected) !important; }
+.sq-last-move { background-color: var(--sq-last) !important; }
+.sq-legal { position: relative; }
+.sq-legal::after {
+  content: '';
+  position: absolute;
+  width: 28%;
+  height: 28%;
+  border-radius: 50%;
+  background: var(--sq-legal);
+  pointer-events: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+.sq-legal.occupied::after {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  border: 3px solid var(--sq-legal);
+  background: transparent;
+}
+.sq-check { background-color: var(--sq-check) !important; }
+
+/* ── Utility classes ── */
+.font-serif { font-family: var(--font-instrument), Georgia, serif; }
+.font-mono  { font-family: var(--font-dm-mono), monospace; }
+
+/* ── Animations ── */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: .5; transform: scale(.8); }
+}
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slide-in {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes bounce-dot {
+  0%, 60%, 100% { transform: translateY(0); }
+  30%            { transform: translateY(-6px); }
+}
+@keyframes timer-flash {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: .4; }
+}
+
+.animate-fade-in  { animation: fade-in .3s ease forwards; }
+.animate-slide-in { animation: slide-in .25s ease forwards; }
+.pulse-dot        { animation: pulse-dot 2s infinite; }
+.bounce-dot       { animation: bounce-dot .6s infinite; }
+.timer-flash      { animation: timer-flash .5s infinite; }
