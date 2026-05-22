@@ -23,7 +23,7 @@ export default function ChessBoard() {
     ? [7, 6, 5, 4, 3, 2, 1, 0]
     : [0, 1, 2, 3, 4, 5, 6, 7];
 
-  const inCheck = game.in_check();
+  const inCheck = game.isCheck();
   const currentKingColor = game.turn();
 
   function findKingSquare(): string | null {

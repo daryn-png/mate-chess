@@ -47,7 +47,7 @@ export default function GamePage() {
     const lastMove = moveHistory[moveHistory.length - 1];
     const isCapture = lastMove.san.includes('x');
     playMove(isCapture);
-    if (game.in_check()) playCheck();
+    if (game.isCheck()) playCheck();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [moveHistory.length]);
 
